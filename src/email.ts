@@ -3,48 +3,35 @@ import { getDomain, normalizeRecipient } from "./address";
 import { MAX_EMAIL_BYTES } from "./config";
 import { getActiveInbox, insertMessage } from "./db";
 import { detectOtp, htmlToText } from "./otp";
-import type { Env } from "./types";
+
+export type IngestResult = "stored" | "unknown_recipient" | "too_large";
 
 /**
- * Email Routing catch-all handler. Mail is only accepted for inboxes that
- * exist and haven't expired; everything else is rejected at SMTP time so
- * spam never reaches the database.
+ * Stores one incoming email, sent here by the Cloudflare relay Worker.
+ * Mail is only accepted for inboxes that exist and haven't expired; the relay
+ * turns anything else into an SMTP rejection, so spam never reaches the database.
  */
-export const handleEmail = async (message: ForwardableEmailMessage, env: Env): Promise<void> => {
-  const address = normalizeRecipient(message.to, getDomain(env));
-  if (!address) {
-    message.setReject("Unknown recipient");
-    return;
-  }
-  if (message.rawSize > MAX_EMAIL_BYTES) {
-    message.setReject("Message too large (limit is 256 KB)");
-    return;
-  }
-  if (!(await getActiveInbox(env.DB, address))) {
-    message.setReject("Unknown recipient");
-    return;
-  }
+export const ingestEmail = async (raw: ArrayBuffer, envelopeTo: string, envelopeFrom: string | null): Promise<IngestResult> => {
+  const address = normalizeRecipient(envelopeTo, getDomain());
+  if (!address) return "unknown_recipient";
+  if (raw.byteLength > MAX_EMAIL_BYTES) return "too_large";
+  if (!(await getActiveInbox(address))) return "unknown_recipient";
 
-  try {
-    const raw = await new Response(message.raw).arrayBuffer();
-    // Attachments are parsed by postal-mime but never stored.
-    const email = await PostalMime.parse(raw);
+  // Attachments are parsed by postal-mime but never stored.
+  const email = await PostalMime.parse(raw);
 
-    const subject = (email.subject ?? "").trim();
-    const html = email.html?.trim() || null;
-    const text = email.text?.trim() || (html ? htmlToText(html) : "") || null;
+  const subject = (email.subject ?? "").trim();
+  const html = email.html?.trim() || null;
+  const text = email.text?.trim() || (html ? htmlToText(html) : "") || null;
 
-    await insertMessage(env.DB, {
-      address,
-      from_address: email.from?.address || message.from || null,
-      subject: subject || null,
-      text_body: text,
-      html_body: html,
-      otp_code: detectOtp(subject, text ?? ""),
-      received_at: Date.now(),
-    });
-  } catch (error) {
-    console.error("Failed to store email", { address, error: String(error) });
-    message.setReject("Temporary failure storing message");
-  }
+  await insertMessage({
+    address,
+    from_address: email.from?.address || envelopeFrom || null,
+    subject: subject || null,
+    text_body: text,
+    html_body: html,
+    otp_code: detectOtp(subject, text ?? ""),
+    received_at: Date.now(),
+  });
+  return "stored";
 };

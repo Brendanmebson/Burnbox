@@ -4,6 +4,7 @@ import { admin } from "./admin";
 import { authRoutes, requireAdmin, requireUser, sameOriginGuard } from "./auth";
 import { INBOX_TTL_MS, TRIAL_MAX_INBOXES } from "./config";
 import * as db from "./db";
+import { env } from "./env";
 import { PRICES, currencyFor, inboxLimit, planOf, requestCountry } from "./plans";
 import type { AppEnv } from "./types";
 
@@ -41,10 +42,10 @@ api.get("/session", async (c) => {
     trial_ends_at: user.trial_ends_at,
     pro_until: user.pro_until,
     inbox_limit: inboxLimit(plan),
-    active_inboxes: await db.countActiveInboxes(c.env.DB, user.id),
+    active_inboxes: await db.countActiveInboxes(user.id),
     price: PRICES[currencyFor(country)],
-    support_email: c.env.SUPPORT_EMAIL?.trim() || null,
-    domain: getDomain(c.env),
+    support_email: env.SUPPORT_EMAIL || null,
+    domain: getDomain(),
     ttl_ms: INBOX_TTL_MS,
     now: Date.now(),
   });
@@ -57,7 +58,7 @@ api.post("/inboxes", async (c) => {
     return c.json({ error: "Your free trial has ended. Upgrade to Pro to keep creating inboxes.", code: "upgrade" }, 402);
   }
   const limit = inboxLimit(plan);
-  if (limit !== null && (await db.countActiveInboxes(c.env.DB, user.id)) >= limit) {
+  if (limit !== null && (await db.countActiveInboxes(user.id)) >= limit) {
     return c.json(
       { error: `The free trial allows ${limit} inboxes at a time. Delete one, or upgrade to Pro for unlimited.`, code: "limit" },
       403,
@@ -65,19 +66,19 @@ api.post("/inboxes", async (c) => {
   }
 
   const body = await c.req.json<{ name?: unknown }>().catch(() => ({}) as { name?: unknown });
-  const domain = getDomain(c.env);
+  const domain = getDomain();
   const requested = typeof body.name === "string" ? body.name.trim() : "";
 
   if (requested) {
     const check = validateName(requested);
     if (!check.ok) return c.json({ error: check.error }, 400);
-    const inbox = await db.createInbox(c.env.DB, `${check.name}@${domain}`, user.id);
+    const inbox = await db.createInbox(`${check.name}@${domain}`, user.id);
     if (!inbox) return c.json({ error: `${check.name}@${domain} is already in use` }, 409);
     return c.json({ inbox: withTimeLeft(inbox, Date.now()) }, 201);
   }
 
   for (let attempt = 0; attempt < 5; attempt++) {
-    const inbox = await db.createInbox(c.env.DB, `${randomName()}@${domain}`, user.id);
+    const inbox = await db.createInbox(`${randomName()}@${domain}`, user.id);
     if (inbox) return c.json({ inbox: withTimeLeft(inbox, Date.now()) }, 201);
   }
   return c.json({ error: "Couldn't find a free random address. Try again." }, 500);
@@ -85,31 +86,31 @@ api.post("/inboxes", async (c) => {
 
 api.get("/inboxes", async (c) => {
   const now = Date.now();
-  const inboxes = await db.listActiveInboxes(c.env.DB, c.get("user").id);
+  const inboxes = await db.listActiveInboxes(c.get("user").id);
   return c.json({ now, inboxes: inboxes.map((inbox) => withTimeLeft(inbox, now)) });
 });
 
 api.get("/inboxes/:address/messages", async (c) => {
-  const address = parseAddressParam(c.req.param("address"), getDomain(c.env));
-  const inbox = address ? await db.getOwnedInbox(c.env.DB, address, c.get("user").id) : null;
+  const address = parseAddressParam(c.req.param("address"), getDomain());
+  const inbox = address ? await db.getOwnedInbox(address, c.get("user").id) : null;
   if (!address || !inbox) return c.json({ error: "Inbox not found or expired" }, 404);
 
   const now = Date.now();
-  const messages = await db.listMessages(c.env.DB, address);
+  const messages = await db.listMessages(address);
   return c.json({ now, inbox: withTimeLeft(inbox, now), messages });
 });
 
 api.delete("/inboxes/:address", async (c) => {
-  const address = parseAddressParam(c.req.param("address"), getDomain(c.env));
+  const address = parseAddressParam(c.req.param("address"), getDomain());
   if (!address) return c.json({ error: "Invalid address" }, 400);
-  const deleted = await db.deleteInbox(c.env.DB, address, c.get("user").id);
+  const deleted = await db.deleteInbox(address, c.get("user").id);
   return c.json({ ok: true, deleted });
 });
 
 api.get("/messages/:id", async (c) => {
   const id = Number(c.req.param("id"));
   if (!Number.isSafeInteger(id) || id <= 0) return c.json({ error: "Invalid message id" }, 400);
-  const message = await db.getMessage(c.env.DB, id, c.get("user").id);
+  const message = await db.getMessage(id, c.get("user").id);
   if (!message) return c.json({ error: "Message not found" }, 404);
   return c.json({ message });
 });

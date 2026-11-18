@@ -42,8 +42,8 @@ export const currencyFor = (country: string | null | undefined): Currency => {
   return "USD";
 };
 
-/** Two-letter country of the visitor, as reported by Cloudflare (null in some local setups). */
+/** Two-letter country of the visitor, from Vercel's geolocation header (null when running locally). */
 export const requestCountry = (request: Request): string | null => {
-  const country = (request as Request & { cf?: { country?: unknown } }).cf?.country;
-  return typeof country === "string" && /^[A-Z]{2}$/.test(country) ? country : null;
+  const country = request.headers.get("x-vercel-ip-country")?.toUpperCase() ?? "";
+  return /^[A-Z]{2}$/.test(country) ? country : null;
 };

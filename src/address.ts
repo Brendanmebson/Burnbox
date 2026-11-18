@@ -1,10 +1,10 @@
 import { RANDOM_NAME_LENGTH } from "./config";
-import type { Env } from "./types";
+import { env } from "./env";
 
 const NAME_CHARS = /^[a-z0-9.-]+$/;
 const ALPHANUMERIC = "abcdefghijklmnopqrstuvwxyz0123456789";
 
-export const getDomain = (env: Env): string => env.DOMAIN.trim().toLowerCase();
+export const getDomain = (): string => env.DOMAIN;
 
 export type NameCheck = { ok: true; name: string } | { ok: false; error: string };
 

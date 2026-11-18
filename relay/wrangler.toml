@@ -1,0 +1,15 @@
+# Email relay Worker: receives the domain's mail through Cloudflare Email Routing
+# and forwards it to the app on Vercel. Deploy with `npm run relay:deploy`.
+name = "burnbox-email-relay"
+main = "worker.ts"
+compatibility_date = "2025-10-01"
+
+[vars]
+# Where the app is hosted. Mail is posted to APP_URL/api/inbound.
+APP_URL = "https://burnbox.sbs"
+
+# Secret (set with `npx wrangler secret put INBOUND_SECRET --config relay/wrangler.toml`):
+# INBOUND_SECRET, the same value as INBOUND_SECRET in your Vercel project settings.
+
+[observability]
+enabled = true

@@ -4,19 +4,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "wrangler dev --test-scheduled",
-    "deploy": "wrangler deploy",
-    "typecheck": "tsc --noEmit",
-    "db:migrate:local": "wrangler d1 migrations apply disposable-inbox --local",
-    "db:migrate:remote": "wrangler d1 migrations apply disposable-inbox --remote",
-    "tail": "wrangler tail"
+    "dev": "vercel dev",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p relay",
+    "db:migrate": "node --env-file-if-exists=.env scripts/migrate.mjs",
+    "relay:deploy": "wrangler deploy --config relay/wrangler.toml",
+    "relay:tail": "wrangler tail --config relay/wrangler.toml"
   },
   "dependencies": {
     "hono": "^4.6.0",
-    "postal-mime": "^2.4.0"
+    "postal-mime": "^2.4.0",
+    "postgres": "^3.4.9"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261116.1",
+    "@types/node": "^22.20.5",
     "typescript": "^5.6.0",
     "wrangler": "^4.0.0"
   }

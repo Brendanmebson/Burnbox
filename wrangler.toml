@@ -4,7 +4,7 @@ compatibility_date = "2025-10-01"
 
 # The domain whose mail is routed to this Worker (Email Routing catch-all).
 [vars]
-DOMAIN = "YOURDOMAIN.com"
+DOMAIN = "burnbox.sbs"
 # Signs in as the admin, with the ADMIN_PASSWORD secret as its password. Nobody can sign up with it.
 ADMIN_EMAIL = "admin@example.com"
 # Shown to users who want to upgrade while online payment isn't set up. Leave empty to hide.

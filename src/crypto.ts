@@ -1,6 +1,7 @@
-// Password hashing and tokens, using only the Web Crypto API built into Workers.
+// Password hashing and tokens, using only the Web Crypto API (built into Node and browsers).
 
-// Workers caps PBKDF2 at 100,000 iterations.
+// Kept at 100,000 so passwords hashed by the earlier Cloudflare version still verify.
+// Each stored hash records its own iteration count.
 const PBKDF2_ITERATIONS = 100_000;
 const encoder = new TextEncoder();
 
@@ -24,7 +25,15 @@ export const verifyPassword = async (password: string, stored: string): Promise<
   if (scheme !== "pbkdf2" || !iterations || !salt || !hash) return false;
   const expected = fromBase64(hash);
   const actual = await derive(password, fromBase64(salt), Number(iterations));
-  return actual.byteLength === expected.byteLength && crypto.subtle.timingSafeEqual(actual, expected);
+  return bytesMatch(actual, expected);
+};
+
+/** Compares two byte arrays in constant time. */
+const bytesMatch = (a: Uint8Array, b: Uint8Array): boolean => {
+  if (a.byteLength !== b.byteLength) return false;
+  let diff = 0;
+  for (let i = 0; i < a.byteLength; i++) diff |= a[i]! ^ b[i]!;
+  return diff === 0;
 };
 
 /** Constant-time comparison of two strings of any length. */
@@ -33,7 +42,7 @@ export const stringsMatch = async (a: string, b: string): Promise<boolean> => {
     crypto.subtle.digest("SHA-256", encoder.encode(a)),
     crypto.subtle.digest("SHA-256", encoder.encode(b)),
   ]);
-  return crypto.subtle.timingSafeEqual(x, y);
+  return bytesMatch(new Uint8Array(x), new Uint8Array(y));
 };
 
 export const sha256Hex = async (text: string): Promise<string> => {

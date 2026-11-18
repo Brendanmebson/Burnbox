@@ -3,7 +3,8 @@ import { deleteCookie, getCookie, setCookie } from "hono/cookie";
 import { SESSION_TTL_MS, TRIAL_MS } from "./config";
 import { hashPassword, randomToken, sha256Hex, stringsMatch, verifyPassword } from "./crypto";
 import { requestCountry } from "./plans";
-import type { AppEnv, Env } from "./types";
+import { env } from "./env";
+import type { AppEnv } from "./types";
 import * as users from "./users";
 
 const SESSION_COOKIE = "tb_session";
@@ -15,8 +16,20 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const DEVICE_ID_RE = /^[A-Za-z0-9_-]{16,64}$/;
 const FINGERPRINT_RE = /^[a-f0-9]{64}$/;
 
-const isHttps = (c: Context<AppEnv>): boolean => new URL(c.req.url).protocol === "https:";
-const adminEmail = (env: Env): string => (env.ADMIN_EMAIL ?? "").trim().toLowerCase();
+/**
+ * The origin the browser used. Behind Vercel's proxy the forwarded headers are
+ * the reliable source; the request URL is the fallback for local development.
+ */
+const requestOrigin = (c: Context<AppEnv>): string => {
+  const url = new URL(c.req.url);
+  const proto = c.req.header("x-forwarded-proto")?.split(",")[0]?.trim() || url.protocol.slice(0, -1);
+  const host = c.req.header("x-forwarded-host")?.split(",")[0]?.trim() || c.req.header("host") || url.host;
+  return `${proto}://${host}`;
+};
+const isHttps = (c: Context<AppEnv>): boolean => requestOrigin(c).startsWith("https:");
+/** Vercel sets x-real-ip to the visitor's address. */
+const clientIp = (c: Context<AppEnv>): string =>
+  c.req.header("x-real-ip") || c.req.header("x-forwarded-for")?.split(",")[0]?.trim() || "";
 const slowDown = () => new Promise((resolve) => setTimeout(resolve, 600));
 
 type Body = Record<string, unknown>;
@@ -24,7 +37,7 @@ const readBody = (c: Context<AppEnv>) => c.req.json<Body>().catch(() => ({}) as 
 const str = (value: unknown, max: number): string => (typeof value === "string" ? value.trim().slice(0, max) : "");
 
 const setSession = async (c: Context<AppEnv>, userId: number) => {
-  const token = await users.createSession(c.env.DB, userId);
+  const token = await users.createSession(userId);
   setCookie(c, SESSION_COOKIE, token, {
     path: "/",
     httpOnly: true,
@@ -41,9 +54,9 @@ const deviceSignals = async (c: Context<AppEnv>, body: Body): Promise<users.Devi
   const deviceIds = [...new Set([fromCookie, fromStorage].filter((id) => DEVICE_ID_RE.test(id)))];
 
   const fingerprint = str(body.fingerprint, 64).toLowerCase();
-  const ip = c.req.header("CF-Connecting-IP") ?? "";
-  // Salted with the admin secret so the stored hashes can't be reversed with a list of all IPs.
-  const ipHash = ip ? await sha256Hex(`ip:${ip}:${c.env.ADMIN_PASSWORD ?? ""}`) : null;
+  const ip = clientIp(c);
+  // Salted with the admin password so the stored hashes can't be reversed with a list of all IPs.
+  const ipHash = ip ? await sha256Hex(`ip:${ip}:${env.ADMIN_PASSWORD}`) : null;
 
   const cookieId = deviceIds[0] ?? randomToken(18);
   setCookie(c, DEVICE_COOKIE, cookieId, {
@@ -65,7 +78,7 @@ export const sameOriginGuard: MiddlewareHandler<AppEnv> = async (c, next) => {
   const method = c.req.method;
   if (method !== "GET" && method !== "HEAD") {
     const origin = c.req.header("Origin");
-    if (origin && origin !== new URL(c.req.url).origin) {
+    if (origin && origin !== requestOrigin(c)) {
       return c.json({ error: "Cross-origin request blocked" }, 403);
     }
   }
@@ -75,7 +88,7 @@ export const sameOriginGuard: MiddlewareHandler<AppEnv> = async (c, next) => {
 export const requireUser: MiddlewareHandler<AppEnv> = async (c, next) => {
   if (PUBLIC_PATHS.has(c.req.path)) return next();
   const token = getCookie(c, SESSION_COOKIE);
-  const user = token ? await users.userForSession(c.env.DB, token) : null;
+  const user = token ? await users.userForSession(token) : null;
   if (!user) return c.json({ error: "Unauthorized" }, 401);
   if (user.disabled) {
     deleteCookie(c, SESSION_COOKIE, { path: "/", secure: isHttps(c) });
@@ -100,12 +113,12 @@ export const authRoutes = new Hono<AppEnv>()
     if (!EMAIL_RE.test(email)) return c.json({ error: "Enter a valid email address.", field: "email" }, 400);
     if (password.length < 8) return c.json({ error: "Use at least 8 characters.", field: "password" }, 400);
     if (password.length > 200) return c.json({ error: "That password is too long.", field: "password" }, 400);
-    if (email === adminEmail(c.env)) return c.json({ error: "This email can't be used to sign up.", field: "email" }, 400);
+    if (email === env.ADMIN_EMAIL) return c.json({ error: "This email can't be used to sign up.", field: "email" }, 400);
 
     const signals = await deviceSignals(c, body);
-    const blocked = await users.signupBlockReason(c.env.DB, signals);
+    const blocked = await users.signupBlockReason(signals);
     if (blocked) {
-      await users.recordBlockedSignup(c.env.DB, blocked);
+      await users.recordBlockedSignup(blocked);
       return c.json(
         {
           error:
@@ -118,7 +131,7 @@ export const authRoutes = new Hono<AppEnv>()
       );
     }
 
-    const user = await users.createUser(c.env.DB, {
+    const user = await users.createUser({
       email,
       name,
       passwordHash: await hashPassword(password),
@@ -128,7 +141,7 @@ export const authRoutes = new Hono<AppEnv>()
     });
     if (!user) return c.json({ error: "An account with this email already exists. Sign in instead.", field: "email" }, 409);
 
-    await users.recordDevice(c.env.DB, user.id, "signup", signals);
+    await users.recordDevice(user.id, "signup", signals);
     await setSession(c, user.id);
     return c.json({ ok: true, role: user.role }, 201);
   })
@@ -142,26 +155,26 @@ export const authRoutes = new Hono<AppEnv>()
     };
     if (!email || !password) return wrong();
 
-    // The admin signs in with ADMIN_EMAIL and the ADMIN_PASSWORD secret.
-    if (email === adminEmail(c.env)) {
-      if (!c.env.ADMIN_PASSWORD || !(await stringsMatch(password, c.env.ADMIN_PASSWORD))) return wrong();
-      const admin = await users.upsertAdmin(c.env.DB, email);
+    // The admin signs in with ADMIN_EMAIL and the ADMIN_PASSWORD setting.
+    if (env.ADMIN_EMAIL && email === env.ADMIN_EMAIL) {
+      if (!env.ADMIN_PASSWORD || !(await stringsMatch(password, env.ADMIN_PASSWORD))) return wrong();
+      const admin = await users.upsertAdmin(email);
       if (!admin) return c.json({ error: "Couldn't create the admin account." }, 500);
       await setSession(c, admin.id);
       return c.json({ ok: true, role: "admin" });
     }
 
-    const user = await users.findUserByEmail(c.env.DB, email);
+    const user = await users.findUserByEmail(email);
     if (!user || !(await verifyPassword(password, user.password_hash))) return wrong();
     if (user.disabled) return c.json({ error: "This account has been disabled." }, 403);
 
-    await users.recordDevice(c.env.DB, user.id, "login", await deviceSignals(c, body));
+    await users.recordDevice(user.id, "login", await deviceSignals(c, body));
     await setSession(c, user.id);
     return c.json({ ok: true, role: user.role });
   })
   .post("/logout", async (c) => {
     const token = getCookie(c, SESSION_COOKIE);
-    if (token) await users.deleteSession(c.env.DB, token);
+    if (token) await users.deleteSession(token);
     deleteCookie(c, SESSION_COOKIE, { path: "/", secure: isHttps(c) });
     return c.json({ ok: true });
   });
