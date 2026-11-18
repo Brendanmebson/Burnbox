@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en" class="force-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3f3f1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Burnbox</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <!-- App -->
+  <div id="shell" class="shell" hidden>
+    <div class="app-grid" aria-hidden="true"></div>
+    <header class="topbar">
+      <nav class="nav">
+        <a class="brand" href="/app/" aria-label="Burnbox inbox">
+          <img src="/favicon.svg" alt="" width="34" height="34">
+          <span>Burnbox</span>
+        </a>
+        <span class="nav-domain" id="nav-domain"></span>
+        <a class="nav-admin" id="nav-admin" href="/admin/" hidden>Admin</a>
+        <span class="nav-account" id="nav-account"></span>
+        <button class="btn btn-light btn-sm" id="logout-btn" type="button">Sign out</button>
+      </nav>
+    </header>
+
+    <main class="layout" id="layout" data-view="inboxes">
+      <!-- Left: create + inbox list -->
+      <aside class="pane pane-inboxes" aria-label="Inboxes">
+        <section class="card create-card">
+          <span class="chip chip-soft"><span class="dot"></span>New address</span>
+          <h1 class="headline">Test inboxes, <span class="dim">gone in 24h.</span><span class="orb orb-y orb-end" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></span></h1>
+          <div class="plan-box" id="plan-box" hidden>
+            <div class="plan-row">
+              <span class="plan-name" id="plan-name"></span>
+              <span class="plan-left" id="plan-left"></span>
+            </div>
+            <div class="plan-meter" id="plan-meter"><span id="plan-meter-fill"></span></div>
+            <div class="plan-row">
+              <span class="plan-usage" id="plan-usage"></span>
+              <button class="plan-upgrade" id="plan-upgrade" type="button">Upgrade</button>
+            </div>
+          </div>
+          <div class="locked" id="locked" hidden>
+            <img class="person locked-person" src="/img/people/envelope.webp" width="310" height="465" alt="" decoding="async">
+            <h2>Your free trial has ended</h2>
+            <p class="muted">Upgrade to Pro to keep creating inboxes. Your existing inboxes stay readable until they expire.</p>
+            <button class="btn btn-primary btn-block" id="locked-upgrade" type="button">See Pro</button>
+          </div>
+          <form id="create-form" novalidate>
+            <label class="label" for="name-input">Custom name <span class="muted">(optional)</span></label>
+            <div class="addr-field">
+              <input id="name-input" class="addr-input" type="text" inputmode="email" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="30" placeholder="seller1">
+              <span class="addr-suffix" id="domain-suffix">@domain</span>
+            </div>
+            <p class="hint" id="name-hint">3 to 30 characters: a–z, 0–9, dots and hyphens.</p>
+            <button class="btn btn-primary btn-block" id="generate-btn" type="submit">Generate address</button>
+          </form>
+        </section>
+
+        <section class="card list-card">
+          <div class="section-head">
+            <h2>Active inboxes</h2>
+            <span class="count" id="inbox-count">0</span>
+          </div>
+          <ul class="inbox-list" id="inbox-list"></ul>
+          <div class="empty" id="inbox-empty" hidden>
+            <img class="person empty-person" src="/img/people/walking.webp" width="474" height="462" alt="" decoding="async">
+            <h3>No inboxes yet</h3>
+            <p>Generate an address above, then use it to sign up in the app you're testing.</p>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Middle: messages of the selected inbox -->
+      <section class="pane pane-messages card" aria-label="Messages">
+        <div class="empty empty-center" id="messages-none">
+          <img class="person empty-person" src="/img/people/envelope.webp" width="310" height="465" alt="" decoding="async">
+          <h3>Pick an inbox</h3>
+          <p>Select or generate an address to see its mail here.</p>
+        </div>
+
+        <div class="messages-view" id="messages-view" hidden>
+          <header class="messages-head">
+            <button class="icon-btn back-inboxes" id="back-inboxes" type="button" aria-label="Back to inboxes" data-icon="back"></button>
+            <div class="messages-title">
+              <span class="eyebrow">Inbox</span>
+              <h2 class="mono" id="messages-address"></h2>
+              <div class="messages-meta">
+                <span class="live" id="live"><span class="live-dot"></span><span id="live-text">Live</span></span>
+                <span class="sep">·</span>
+                <span id="messages-expiry"></span>
+              </div>
+            </div>
+            <div class="head-actions">
+              <button class="icon-btn" id="copy-address" type="button" aria-label="Copy address" title="Copy address" data-icon="copy"></button>
+              <button class="icon-btn" id="refresh-btn" type="button" aria-label="Check now" title="Check now" data-icon="refresh"></button>
+              <button class="icon-btn danger" id="delete-current" type="button" aria-label="Delete inbox" title="Delete inbox" data-icon="trash"></button>
+            </div>
+          </header>
+
+          <ul class="message-list" id="message-list"></ul>
+
+          <div class="empty empty-center waiting" id="messages-empty" hidden>
+            <img class="person empty-person waiting-person" src="/img/people/plane.webp" width="462" height="398" alt="" decoding="async">
+            <h3>Waiting for emails...</h3>
+            <p>Send something to <strong class="mono" id="waiting-address"></strong>. New mail shows up within a few seconds.</p>
+            <button class="btn btn-ghost btn-sm" id="waiting-copy" type="button">Copy address</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right: reader -->
+      <section class="pane pane-reader card" aria-label="Message">
+        <div class="empty empty-center" id="reader-none">
+          <img class="person empty-person" src="/img/people/phone.webp" width="468" height="428" alt="" decoding="async">
+          <h3>No message selected</h3>
+          <p>Choose an email to read it. Codes and links are pulled out for you.</p>
+        </div>
+        <article class="reader" id="reader" hidden></article>
+      </section>
+    </main>
+  </div>
+
+  <dialog class="card upgrade-dialog" id="upgrade-dialog" aria-labelledby="upgrade-title">
+    <form method="dialog" class="upgrade-close-form">
+      <button class="icon-btn upgrade-close" type="submit" aria-label="Close" data-icon="close"></button>
+    </form>
+    <span class="chip chip-soft"><span class="dot"></span>Pro</span>
+    <h2 class="headline" id="upgrade-title">Unlimited inboxes, <span class="dim">one small price.</span></h2>
+    <div class="upgrade-price"><strong id="upgrade-price">$5</strong><span class="muted">per month</span></div>
+    <ul class="check-list">
+      <li>Unlimited inboxes at a time</li>
+      <li>Everything in the free trial</li>
+      <li>Keep using Burnbox after your trial</li>
+    </ul>
+    <p class="upgrade-note" id="upgrade-note">Online payment is coming soon. Until then, get in touch and we'll switch Pro on for your account.</p>
+    <a class="btn btn-primary btn-block" id="upgrade-contact" href="#" hidden>Email us to upgrade</a>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" class="force-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3f3f1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Start your free trial · Burnbox</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/auth.js" defer></script>
+</head>
+<body data-auth="signup">
+  <main class="login">
+    <div class="app-grid" aria-hidden="true"></div>
+    <a class="brand auth-brand" href="/" aria-label="Burnbox home">
+      <img src="/favicon.svg" alt="" width="34" height="34">
+      <span>Burnbox</span>
+    </a>
+
+    <div class="login-deco login-deco-a" aria-hidden="true">
+      <span class="chip chip-soft"><span class="dot"></span>Free trial</span>
+      <strong class="deco-code">7<span>days</span></strong>
+    </div>
+    <div class="login-deco login-deco-b" aria-hidden="true">
+      <span class="deco-ring">4</span>
+      <span class="deco-label">inboxes at a time</span>
+    </div>
+
+    <div class="login-inner">
+      <span class="chip">Built for developers</span>
+      <h1 class="display">Start testing <span class="dim">in a minute</span><span class="orb orb-y orb-end" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></span></h1>
+      <p class="lede">Create your account and get 7 days free with up to 4 inboxes at a time. No card needed. After that, Pro is <strong data-price>$5</strong> a month.</p>
+      <form id="auth-form" class="card login-card" autocomplete="on">
+        <label class="label" for="name">Name <span class="muted">(optional)</span></label>
+        <input id="name" class="input" type="text" name="name" autocomplete="name" maxlength="60">
+        <label class="label" for="email">Email</label>
+        <input id="email" class="input" type="email" name="email" autocomplete="email" maxlength="254" required>
+        <label class="label" for="password">Password</label>
+        <input id="password" class="input" type="password" name="password" autocomplete="new-password" minlength="8" maxlength="200" required>
+        <p class="field-hint">At least 8 characters.</p>
+        <p id="form-error" class="form-error" role="alert"></p>
+        <button class="btn btn-primary btn-block" type="submit">Create account</button>
+        <p class="auth-switch">Already have an account? <a href="/login/">Sign in</a></p>
+      </form>
+      <p class="fine-print">One free trial per person. Creating more than one account from the same device isn't allowed.</p>
+    </div>
+
+    <img class="person login-person login-person-l" src="/img/people/phone.webp" width="468" height="428" alt="" decoding="async">
+    <img class="person login-person login-person-r" src="/img/people/plane.webp" width="462" height="398" alt="" decoding="async">
+  </main>
+</body>
+</html>

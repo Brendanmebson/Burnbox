@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" class="force-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3f3f1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Admin · Burnbox</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/admin.js" defer></script>
+</head>
+<body>
+  <div class="shell" id="shell" hidden>
+    <div class="app-grid" aria-hidden="true"></div>
+    <header class="topbar">
+      <nav class="nav">
+        <a class="brand brand-collapsible" href="/admin/" aria-label="Burnbox admin">
+          <img src="/favicon.svg" alt="" width="34" height="34">
+          <span>Burnbox</span>
+        </a>
+        <span class="nav-badge">Admin</span>
+        <a class="nav-link" href="/app/">Your inboxes</a>
+        <span class="nav-account" id="nav-account"></span>
+        <button class="btn btn-light btn-sm" id="logout-btn" type="button">Sign out</button>
+      </nav>
+    </header>
+
+    <main class="admin">
+      <section class="admin-head">
+        <div>
+          <span class="chip">Dashboard</span>
+          <h1 class="display admin-title">Customers <span class="dim">&amp; plans</span></h1>
+        </div>
+        <img class="person admin-person" src="/img/people/laptop.webp" width="432" height="372" alt="" decoding="async">
+      </section>
+
+      <section class="stat-grid" aria-label="Totals">
+        <div class="card stat-tile"><span class="chip chip-soft"><span class="dot"></span>Customers</span><strong id="s-users">–</strong><p class="muted" id="s-signups">–</p></div>
+        <div class="card stat-tile"><span class="chip chip-soft"><span class="dot"></span>Free trial</span><strong id="s-trial">–</strong><p class="muted">Trial still running</p></div>
+        <div class="card stat-tile"><span class="chip chip-soft"><span class="dot"></span>Pro</span><strong id="s-pro">–</strong><p class="muted" id="s-revenue">–</p></div>
+        <div class="card stat-tile"><span class="chip chip-soft"><span class="dot"></span>Trial ended</span><strong id="s-expired">–</strong><p class="muted">Ready to upgrade</p></div>
+        <div class="card stat-tile"><span class="chip chip-soft"><span class="dot"></span>Inboxes</span><strong id="s-inboxes">–</strong><p class="muted" id="s-emails">–</p></div>
+        <div class="card stat-tile"><span class="chip chip-soft"><span class="dot"></span>Blocked</span><strong id="s-blocked">–</strong><p class="muted">Repeat signups, last 30 days</p></div>
+      </section>
+
+      <section class="card users-card">
+        <div class="users-bar">
+          <h2>Accounts</h2>
+          <div class="segmented" role="group" aria-label="Filter accounts" id="filters">
+            <button type="button" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" data-filter="trial" aria-pressed="false">Trial</button>
+            <button type="button" data-filter="pro" aria-pressed="false">Pro</button>
+            <button type="button" data-filter="expired" aria-pressed="false">Ended</button>
+            <button type="button" data-filter="disabled" aria-pressed="false">Disabled</button>
+          </div>
+          <input class="input users-search" id="search" type="search" placeholder="Search email or name" aria-label="Search accounts" autocomplete="off">
+        </div>
+        <div class="table-wrap">
+          <table class="users-table">
+            <thead>
+              <tr><th>Account</th><th>Plan</th><th>Inboxes</th><th>Joined</th><th>Last sign-in</th><th>Country</th><th class="th-actions">Actions</th></tr>
+            </thead>
+            <tbody id="users-body"></tbody>
+          </table>
+        </div>
+        <div class="empty" id="users-empty" hidden>
+          <img class="person empty-person" src="/img/people/walking.webp" width="474" height="462" alt="" decoding="async">
+          <h3>No accounts here yet</h3>
+          <p>New signups show up here as soon as they create an account.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

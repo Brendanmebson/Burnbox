@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" class="force-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3f3f1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Sign in · Burnbox</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/auth.js" defer></script>
+</head>
+<body data-auth="login">
+  <main class="login">
+    <div class="app-grid" aria-hidden="true"></div>
+    <a class="brand auth-brand" href="/" aria-label="Burnbox home">
+      <img src="/favicon.svg" alt="" width="34" height="34">
+      <span>Burnbox</span>
+    </a>
+
+    <div class="login-deco login-deco-a" aria-hidden="true">
+      <span class="chip chip-soft"><span class="dot"></span>One-time code</span>
+      <strong class="deco-code">482<span>913</span></strong>
+    </div>
+    <div class="login-deco login-deco-b" aria-hidden="true">
+      <span class="deco-ring">24h</span>
+      <span class="deco-label">then it's gone</span>
+    </div>
+
+    <div class="login-inner">
+      <span class="chip">Developer test inbox</span>
+      <h1 class="display">Welcome <span class="dim">back</span><br><span class="orbs" aria-hidden="true"><span class="orb orb-y"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l2 2M15 8l2 2"/></svg></span><span class="orb orb-o"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></span></span> to Burnbox</h1>
+      <p class="lede">Sign in to see your test inboxes and the codes your app sent.</p>
+      <form id="auth-form" class="card login-card" autocomplete="on">
+        <label class="label" for="email">Email</label>
+        <input id="email" class="input" type="email" name="email" autocomplete="email" required autofocus>
+        <label class="label" for="password">Password</label>
+        <input id="password" class="input" type="password" name="password" autocomplete="current-password" required>
+        <p id="form-error" class="form-error" role="alert"></p>
+        <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+        <p class="auth-switch">New to Burnbox? <a href="/signup/">Start your free trial</a></p>
+      </form>
+    </div>
+
+    <img class="person login-person login-person-l" src="/img/people/catch.webp" width="406" height="482" alt="" decoding="async">
+    <img class="person login-person login-person-r" src="/img/people/laptop.webp" width="432" height="372" alt="" decoding="async">
+  </main>
+</body>
+</html>

@@ -1,0 +1,29 @@
+name = "disposable-inbox"
+main = "src/index.ts"
+compatibility_date = "2025-10-01"
+
+# The domain whose mail is routed to this Worker (Email Routing catch-all).
+[vars]
+DOMAIN = "YOURDOMAIN.com"
+# Signs in as the admin, with the ADMIN_PASSWORD secret as its password. Nobody can sign up with it.
+ADMIN_EMAIL = "admin@example.com"
+# Shown to users who want to upgrade while online payment isn't set up. Leave empty to hide.
+SUPPORT_EMAIL = ""
+
+# Frontend: plain HTML/CSS/JS served straight from ./public (no build step).
+# Requests that don't match a file (e.g. /api/*) fall through to the Worker.
+[assets]
+directory = "./public"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "disposable-inbox"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# Hourly cleanup of expired inboxes and their messages.
+[triggers]
+crons = ["0 * * * *"]
+
+[observability]
+enabled = true

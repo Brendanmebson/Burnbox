@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en" class="force-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f3f3f1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Burnbox · Test email inboxes for developers</title>
+  <meta name="description" content="A test email inbox for developers. Real, working addresses for testing your app's signup, OTP and verification emails. Every inbox deletes itself after 24 hours.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/landing.css">
+  <script src="/landing.js" defer></script>
+</head>
+<body class="landing">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="home">
+    <div class="hero-grid" aria-hidden="true"></div>
+
+    <!-- Rocket with a trail of envelopes (decorative) -->
+    <div class="rocket-flight" aria-hidden="true">
+      <div class="rocket-trail">
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:0;--dx:-399px;--dy:-59px;--r:-11deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:1;--dx:-485px;--dy:16px;--r:3deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:2;--dx:-387px;--dy:-66px;--r:-6deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:3;--dx:-391px;--dy:42px;--r:6deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:4;--dx:-391px;--dy:-19px;--r:-3deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:5;--dx:-452px;--dy:18px;--r:-2deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:6;--dx:-460px;--dy:-43px;--r:-6deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:7;--dx:-454px;--dy:18px;--r:2deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:8;--dx:-385px;--dy:-161px;--r:-27deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:9;--dx:-433px;--dy:29px;--r:1deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:10;--dx:-419px;--dy:-27px;--r:-4deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:11;--dx:-393px;--dy:115px;--r:21deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:12;--dx:-427px;--dy:-108px;--r:-23deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:13;--dx:-452px;--dy:120px;--r:15deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:14;--dx:-467px;--dy:-41px;--r:-6deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:15;--dx:-439px;--dy:130px;--r:23deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:16;--dx:-418px;--dy:-79px;--r:-16deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:17;--dx:-479px;--dy:36px;--r:3deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:18;--dx:-447px;--dy:-98px;--r:-17deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:19;--dx:-437px;--dy:62px;--r:8deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:20;--dx:-395px;--dy:-162px;--r:-27deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:21;--dx:-423px;--dy:34px;--r:2deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:22;--dx:-385px;--dy:-85px;--r:-9deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:23;--dx:-451px;--dy:20px;--r:4deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:24;--dx:-420px;--dy:-145px;--r:-27deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:25;--dx:-443px;--dy:63px;--r:12deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:26;--dx:-487px;--dy:-80px;--r:-18deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+        <svg class="trail-mail" viewBox="0 0 24 24" style="--i:27;--dx:-469px;--dy:51px;--r:11deg"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+      </div>
+      <svg class="rocket" viewBox="0 0 124 68">
+        <!-- puffy exhaust, flickers -->
+        <g class="rocket-engine">
+          <g class="rocket-flame">
+            <path class="rocket-flame-fill" d="M24 23c-4-7-14-7-17-1-7 0-10 7-6 12-4 5 0 12 6 11 3 7 13 7 17 0z"/>
+            <path class="rocket-accent" d="M23 28.5c-5 0-9 2.5-12 5.5 3 3 7 5.5 12 5.5z"/>
+          </g>
+        </g>
+        <!-- big back fins -->
+        <path class="rocket-accent" d="M38 22 26 4c-1-2 0-3 2-3h14c2 0 3 1 4 2l12 19z"/>
+        <path class="rocket-accent" d="M38 46 26 64c-1 2 0 3 2 3h14c2 0 3-1 4-2l12-19z"/>
+        <!-- small front fins -->
+        <path class="rocket-accent" d="m80 22 7-9c1-1 2-1 2 0l3 9z"/>
+        <path class="rocket-accent" d="m80 46 7 9c1 1 2 1 2 0l3-9z"/>
+        <!-- ribbed rear band -->
+        <path class="rocket-fill" d="M24 21c3-2 7-3 12-3v32c-5 0-9-1-12-3-2-4-2-22 0-26z"/>
+        <path d="M28 25h5M27 34h6M28 43h5"/>
+        <!-- body -->
+        <path class="rocket-fill" d="M36 20h52c14 0 26 6 33 14-7 8-19 14-33 14H36z"/>
+        <!-- nose cone -->
+        <path class="rocket-accent" d="M88 20c14 0 26 6 33 14-7 8-19 14-33 14 4-4 4-24 0-28z"/>
+        <!-- porthole -->
+        <circle class="rocket-fill" cx="64" cy="34" r="8.5"/>
+        <path d="M59.5 31a6 6 0 0 1 4.5-3.5"/>
+        <!-- doodle speed marks, like the people illustrations -->
+        <path class="rocket-doodle" d="M50 12h-8M54 56h-8M100 10l3-3M100 58l3 3"/>
+      </svg>
+    </div>
+
+    <nav class="nav lp-nav" aria-label="Main">
+      <a class="brand" href="/" aria-label="Burnbox home">
+        <img src="/favicon.svg" alt="" width="34" height="34">
+        <span>Burnbox</span>
+      </a>
+      <ul class="lp-links" id="lp-links">
+        <li><a class="active" href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li class="lp-menu-only" data-signed-out><a href="/login/">Login</a></li>
+      </ul>
+      <div class="lp-nav-end">
+        <a class="lp-login" href="/login/" data-signed-out>Login</a>
+        <a class="btn btn-light btn-sm" href="/signup/" data-open-app>Start free trial</a>
+        <button class="lp-menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="lp-links">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path class="m1" d="M4 8h16"/><path class="m2" d="M4 16h16"/></svg>
+        </button>
+      </div>
+    </nav>
+
+    <div class="hero-body">
+      <!-- Floating cards (decorative) -->
+      <div class="float f-code" aria-hidden="true">
+        <span class="f-bar"></span>
+        <div class="f-code-row"><strong class="mono">482 913</strong>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </div>
+        <span class="f-sub">Code detected</span>
+      </div>
+
+      <div class="float f-area" aria-hidden="true">
+        <span class="f-title">Emails caught</span>
+        <svg viewBox="0 0 200 110" class="area-chart">
+          <defs>
+            <linearGradient id="g-area" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="var(--yellow)" stop-opacity=".9"/>
+              <stop offset="1" stop-color="var(--yellow)" stop-opacity=".08"/>
+            </linearGradient>
+          </defs>
+          <g class="gridlines"><line x1="0" y1="20" x2="200" y2="20"/><line x1="0" y1="50" x2="200" y2="50"/><line x1="0" y1="80" x2="200" y2="80"/></g>
+          <path d="M4 82 L40 80 L76 58 L112 58 L148 26 L192 24 L192 100 L4 100 Z" fill="url(#g-area)"/>
+          <path d="M4 82 L40 80 L76 58 L112 58 L148 26 L192 24" fill="none" stroke="var(--yellow)" stroke-width="2.5" stroke-linejoin="round"/>
+          <g class="dots"><circle cx="40" cy="80" r="3.5"/><circle cx="76" cy="58" r="3.5"/><circle cx="112" cy="58" r="3.5"/><circle cx="148" cy="26" r="3.5"/><circle cx="192" cy="24" r="3.5"/></g>
+        </svg>
+        <div class="axis"><span>09:00</span><span>12:00</span><span>15:00</span><span>18:00</span><span>21:00</span></div>
+      </div>
+
+      <div class="float f-step" aria-hidden="true">
+        <div class="step-y"><span>50</span><span>40</span><span>30</span><span>20</span><span>10</span></div>
+        <svg viewBox="0 0 140 120" class="step-chart">
+          <defs>
+            <linearGradient id="g-step" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="var(--yellow)"/>
+              <stop offset="1" stop-color="var(--yellow)" stop-opacity=".25"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 120 V92 H30 V70 H62 V48 H90 V30 H140 V120 Z" fill="url(#g-step)"/>
+          <line x1="90" y1="28" x2="90" y2="116" stroke="var(--text)" stroke-width="1.5"/>
+          <circle cx="90" cy="116" r="3" fill="var(--text)"/>
+        </svg>
+        <span class="tip">50 kept</span>
+      </div>
+
+      <div class="float f-speed" aria-hidden="true">
+        <span class="f-orb"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 15 5-5 4 4 7-7M14 7h6v6"/></svg></span>
+        <span class="f-lines"><i></i><i></i></span>
+        <strong>~3s</strong>
+      </div>
+
+      <!-- Copy, on a frosted panel so the rocket blurs out behind it -->
+      <div class="hero-copy">
+      <span class="chip lp-chip">Built for developers</span>
+      <h1 class="lp-display">
+        Test email <span class="dim">inboxes</span><br>
+        <span class="orbs" aria-hidden="true">
+          <span class="orb orb-y"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l2 2M15 8l2 2"/></svg></span>
+          <span class="orb orb-o"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></span>
+        </span>
+        on autopilot
+        <span class="orb orb-y orb-end" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg></span>
+      </h1>
+      <p class="lp-lede">A test email inbox for the apps you're building. Sign up with a real, working address, and OTP codes and verification links arrive in seconds. Every inbox deletes itself after 24 hours.</p>
+      <div class="lp-ctas">
+        <a class="btn btn-primary lp-btn" href="/signup/" data-open-app-cta>Start free trial</a>
+        <a class="btn btn-ghost lp-btn" href="#how">
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          How it works
+        </a>
+      </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="lp-main">
+  <div class="bg-icons" aria-hidden="true">
+    <svg class="bg-sprite" width="0" height="0" aria-hidden="true"><defs><symbol id="bi-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol><symbol id="bi-at" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></symbol><symbol id="bi-key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l2 2M15 8l2 2"/></symbol><symbol id="bi-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol><symbol id="bi-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="bi-clock" viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></symbol><symbol id="bi-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/></symbol><symbol id="bi-inbox" viewBox="0 0 24 24"><path d="M3 13h5l1.5 3h5L16 13h5"/><path d="M5.5 5h13L21 13v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5z"/></symbol><symbol id="bi-send" viewBox="0 0 24 24"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/></symbol><symbol id="bi-code" viewBox="0 0 24 24"><path d="m8 8-5 4 5 4M16 8l5 4-5 4M14 4l-4 16"/></symbol><symbol id="bi-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></symbol><symbol id="bi-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol><symbol id="bi-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></symbol><symbol id="bi-hash" viewBox="0 0 24 24"><path d="M5 9h15M4 15h15M10 3 8 21M16 3l-2 18"/></symbol><symbol id="bi-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol></defs></svg>
+    <svg class="bi" style="top:2%;left:3%;--s:64px;--r:-12deg;--d:0.0s"><use href="#bi-mail"/></svg>
+    <svg class="bi" style="top:6%;right:4%;--s:52px;--r:10deg;--d:7.3s"><use href="#bi-at"/></svg>
+    <svg class="bi sm-hide" style="top:13%;left:6%;--s:44px;--r:18deg;--d:5.6s"><use href="#bi-key"/></svg>
+    <svg class="bi" style="top:17%;right:2%;--s:58px;--r:-8deg;--d:3.9s"><use href="#bi-link"/></svg>
+    <svg class="bi" style="top:24%;left:2%;--s:50px;--r:6deg;--d:2.2s"><use href="#bi-lock"/></svg>
+    <svg class="bi sm-hide" style="top:28%;right:7%;--s:40px;--r:14deg;--d:0.5s"><use href="#bi-hash"/></svg>
+    <svg class="bi sm-hide" style="top:35%;left:7%;--s:46px;--r:-14deg;--d:7.8s"><use href="#bi-bell"/></svg>
+    <svg class="bi" style="top:39%;right:3%;--s:62px;--r:8deg;--d:6.1s"><use href="#bi-clock"/></svg>
+    <svg class="bi" style="top:46%;left:3%;--s:56px;--r:-6deg;--d:4.4s"><use href="#bi-send"/></svg>
+    <svg class="bi sm-hide" style="top:49%;right:6%;--s:46px;--r:-10deg;--d:2.7s"><use href="#bi-code"/></svg>
+    <svg class="bi wide-only" style="top:44%;left:24%;--s:34px;--r:0deg;--d:1.0s"><use href="#bi-spark"/></svg>
+    <svg class="bi wide-only" style="top:44%;right:24%;--s:30px;--r:0deg;--d:8.3s"><use href="#bi-spark"/></svg>
+    <svg class="bi" style="top:57%;right:2%;--s:58px;--r:10deg;--d:6.6s"><use href="#bi-shield"/></svg>
+    <svg class="bi" style="top:60%;left:5%;--s:54px;--r:-8deg;--d:4.9s"><use href="#bi-inbox"/></svg>
+    <svg class="bi sm-hide" style="top:68%;right:6%;--s:44px;--r:-12deg;--d:3.2s"><use href="#bi-check"/></svg>
+    <svg class="bi sm-hide" style="top:72%;left:2%;--s:48px;--r:14deg;--d:1.5s"><use href="#bi-mail"/></svg>
+    <svg class="bi" style="top:79%;right:3%;--s:50px;--r:8deg;--d:8.8s"><use href="#bi-trash"/></svg>
+    <svg class="bi" style="top:83%;left:6%;--s:40px;--r:-20deg;--d:7.1s"><use href="#bi-key"/></svg>
+    <svg class="bi sm-hide" style="top:90%;right:5%;--s:46px;--r:-6deg;--d:5.4s"><use href="#bi-at"/></svg>
+    <svg class="bi" style="top:94%;left:3%;--s:42px;--r:10deg;--d:3.7s"><use href="#bi-lock"/></svg>
+  </div>
+    <!-- ============ FEATURES ============ -->
+    <section class="lp-section" id="features">
+      <div class="section-intro">
+        <div>
+          <span class="chip">Key features</span>
+          <h2 class="lp-h2">Catch every email your app sends, <span class="dim">without the clutter.</span></h2>
+        </div>
+        <div class="intro-side">
+          <img class="person person-intro" src="/img/people/catch.webp" width="406" height="482" alt="" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <div class="feature-tray">
+        <article class="card f-card">
+          <div class="f-card-head">
+            <div>
+              <h3>Inboxes</h3>
+              <p class="muted">Live for 24 hours</p>
+            </div>
+            <a class="btn btn-primary btn-sm" href="/signup/" data-open-app-small>Create</a>
+          </div>
+          <div class="f-big">
+            <span class="mono">x7k2p9</span>
+            <span class="chip chip-soft"><span class="dot"></span>23h left</span>
+          </div>
+          <ul class="f-rows">
+            <li><span class="mono">seller1@</span><span class="muted">2 emails</span><span class="up">OTP 739204</span></li>
+            <li><span class="mono">qa.team@</span><span class="muted">1 email</span><span class="down">link</span></li>
+            <li><span class="mono">x7k2p9@</span><span class="muted">waiting…</span><span class="muted">—</span></li>
+          </ul>
+        </article>
+
+        <article class="card f-card">
+          <div class="f-card-head">
+            <div class="stack" aria-hidden="true">
+              <span class="stack-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 4a4 4 0 0 1 0 8M18 14c2 .7 3 2.7 3 6"/></svg></span>
+              <span class="pill-addr a0">+a</span><span class="pill-addr a1">+b</span><span class="pill-addr a2">+c</span><span class="pill-addr a3">+d</span>
+              <span class="pill-plus">+</span>
+            </div>
+            <span class="muted dots3">•••</span>
+          </div>
+          <h3>Plus addressing</h3>
+          <p class="muted">Every <span class="mono">seller1+anything@</span> lands in <span class="mono">seller1@</span>. One inbox gives you unlimited unique signups.</p>
+        </article>
+
+        <article class="card f-card">
+          <div class="f-card-head">
+            <div>
+              <h3>OTP detection</h3>
+              <p class="muted">4 to 8 digit codes, one click to copy</p>
+            </div>
+          </div>
+          <div class="otp-demo">
+            <strong class="mono">739 204</strong>
+            <span class="btn btn-primary btn-sm" aria-hidden="true">Copy code</span>
+          </div>
+          <p class="muted small">Prices, phone numbers, dates and order numbers are skipped.</p>
+        </article>
+
+        <article class="card f-card">
+          <div class="f-card-head">
+            <div>
+              <h3>Safe HTML preview</h3>
+              <p class="muted">Sandboxed, no scripts</p>
+            </div>
+          </div>
+          <div class="html-demo" aria-hidden="true">
+            <div class="html-demo-bar"><span class="seg"><b>HTML</b><i>Text</i></span><span class="blocked">Remote images blocked</span></div>
+            <div class="html-demo-body"><span></span><span></span><span class="short"></span><em>Confirm email</em></div>
+          </div>
+          <p class="muted small">Tracking pixels stay blocked until you click <b>Load images</b>.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="lp-section stats" aria-label="Limits">
+      <div class="stat">
+        <span class="chip chip-soft"><span class="dot"></span>Speed</span>
+        <strong class="stat-num">5<sup>s</sup></strong>
+        <p class="muted">Inbox refresh while the tab is open. Polling pauses when it's hidden.</p>
+      </div>
+      <div class="stat">
+        <span class="chip chip-soft"><span class="dot"></span>Cleanup</span>
+        <strong class="stat-num">24<sup>h</sup></strong>
+        <p class="muted">Then the address and every message in it are permanently deleted.</p>
+      </div>
+      <div class="stat">
+        <span class="chip chip-soft"><span class="dot"></span>Storage</span>
+        <strong class="stat-num">50</strong>
+        <p class="muted">Newest messages kept per inbox. Older ones drop off automatically.</p>
+      </div>
+      <div class="stat">
+        <span class="chip chip-soft"><span class="dot"></span>Spam</span>
+        <strong class="stat-num">0</strong>
+        <p class="muted">Mail to unknown or expired addresses bounces and is never stored.</p>
+      </div>
+    </section>
+
+    <!-- ============ HOW IT WORKS ============ -->
+    <section class="lp-section" id="how">
+      <div class="section-intro center">
+        <span class="chip">How it works</span>
+        <h2 class="lp-h2">Testing your signup flow, <span class="dim">made painless.</span></h2>
+        <p class="lp-aside">For developers testing their own apps. Generate an address, trigger the email, copy the code.</p>
+        <img class="person person-flank flank-l" src="/img/people/walking.webp" width="474" height="462" alt="" loading="lazy" decoding="async">
+        <img class="person person-flank flank-r" src="/img/people/laptop.webp" width="432" height="372" alt="" loading="lazy" decoding="async">
+      </div>
+
+      <div class="how-grid">
+        <ol class="steps">
+          <li class="card step">
+            <span class="step-n">1</span>
+            <div><h3>Generate an address</h3><p class="muted">Random like <span class="mono">x7k2p9@</span> or custom like <span class="mono">seller1@</span>. It's copied for you.</p></div>
+          </li>
+          <li class="card step">
+            <span class="step-n">2</span>
+            <div><h3>Sign up in your app</h3><p class="muted">Run the signup in the app you're building. The email lands in Burnbox within seconds.</p></div>
+          </li>
+          <li class="card step">
+            <span class="step-n">3</span>
+            <div><h3>Copy the code or link</h3><p class="muted">The OTP shows large at the top, and the verification link is listed first.</p></div>
+          </li>
+        </ol>
+
+        <article class="card bars-card" aria-hidden="true">
+          <div class="bars-head">
+            <span class="bars-title"><span class="bars-ico"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></span>Emails received</span>
+            <span class="chip">Today</span>
+          </div>
+          <div class="bars-num">38 <span class="chip chip-soft">+12</span></div>
+          <ul class="bars-legend">
+            <li><span>seller1@</span><span>14</span><span class="up">OTP</span></li>
+            <li><span>qa.team@</span><span>9</span><span class="down">links</span></li>
+          </ul>
+          <div class="bars">
+            <i style="height:54%"></i><i style="height:40%"></i><i style="height:62%"></i><i style="height:74%"></i><i style="height:88%"></i><i style="height:70%"></i><i style="height:52%"></i><i style="height:68%"></i>
+          </div>
+          <div class="axis"><span>09:00</span><span>12:00</span><span>15:00</span><span>18:00</span><span>21:00</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ SECURITY ============ -->
+    <section class="lp-section" id="security">
+      <div class="section-intro">
+        <div>
+          <span class="chip">Security</span>
+          <h2 class="lp-h2">Private by default, <span class="dim">gone by tomorrow.</span></h2>
+        </div>
+        <div class="intro-side">
+          <img class="person person-intro" src="/img/people/envelope.webp" width="310" height="465" alt="" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="sec-grid">
+        <div class="card sec">
+          <span class="sec-ico y"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+          <h3>Your own account</h3>
+          <p class="muted">Only you can see your inboxes. Passwords are salted and hashed, and sessions use an HTTP-only cookie.</p>
+        </div>
+        <div class="card sec">
+          <span class="sec-ico o"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg></span>
+          <h3>Sandboxed emails</h3>
+          <p class="muted">HTML renders with scripts and forms disabled, isolated from the app.</p>
+        </div>
+        <div class="card sec">
+          <span class="sec-ico d"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></svg></span>
+          <h3>Auto-delete</h3>
+          <p class="muted">An hourly job removes expired inboxes and every message in them.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section class="lp-section" id="pricing">
+      <div class="section-intro center">
+        <span class="chip">Pricing</span>
+        <h2 class="lp-h2">Try it free, <span class="dim">then one small price.</span></h2>
+        <div class="segmented currency-switch" role="group" aria-label="Currency" id="currency-switch">
+          <button type="button" data-currency="USD" aria-pressed="true">$ USD</button>
+          <button type="button" data-currency="GBP" aria-pressed="false">£ GBP</button>
+          <button type="button" data-currency="EUR" aria-pressed="false">€ EUR</button>
+        </div>
+      </div>
+
+      <div class="price-grid">
+        <article class="card price-card">
+          <span class="chip chip-soft"><span class="dot"></span>Free trial</span>
+          <div class="price"><strong data-price-zero>$0</strong><span class="muted">for 7 days</span></div>
+          <p class="muted">Everything you need to test a signup flow. No card needed.</p>
+          <ul class="check-list">
+            <li>Up to 4 inboxes at a time</li>
+            <li>OTP detection and one-click copy</li>
+            <li>Plus addressing</li>
+            <li>Safe HTML preview</li>
+          </ul>
+          <a class="btn btn-ghost btn-block lp-price-btn" href="/signup/" data-open-app-cta>Start free trial</a>
+        </article>
+
+        <article class="price-card price-card-pro">
+          <span class="chip chip-pro">Pro</span>
+          <div class="price"><strong data-price>$5</strong><span>per month</span></div>
+          <p>For developers who test email every day.</p>
+          <ul class="check-list">
+            <li>Unlimited inboxes at a time</li>
+            <li>Everything in the free trial</li>
+            <li>Keep using Burnbox after your trial</li>
+          </ul>
+          <a class="btn btn-primary btn-block lp-price-btn" href="/signup/" data-open-app-cta>Start with a free trial</a>
+        </article>
+      </div>
+      <p class="price-note">Prices are shown in your local currency. One free trial per person.</p>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="lp-section cta-section">
+      <div class="cta-band">
+        <img class="person person-cta cta-phone" src="/img/people/phone.webp" width="468" height="428" alt="" loading="lazy" decoding="async">
+        <img class="person person-cta cta-plane" src="/img/people/plane.webp" width="462" height="398" alt="" loading="lazy" decoding="async">
+        <div>
+          <h2 class="lp-h2">Your next signup test is <span class="dim">one click away.</span></h2>
+          <p>Start with a 7-day free trial. No card needed.</p>
+        </div>
+        <a class="btn btn-primary lp-btn" href="/signup/" data-open-app-cta>Start free trial</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="lp-footer">
+    <span class="brand-sm"><img src="/favicon.svg" alt="" width="22" height="22"> Burnbox</span>
+    <span class="muted">Test email inboxes for developers.</span>
+  </footer>
+</body>
+</html>
