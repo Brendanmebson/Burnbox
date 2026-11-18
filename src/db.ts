@@ -1,5 +1,5 @@
-import { INBOX_TTL_MS, MAX_MESSAGES_PER_INBOX } from "./config";
-import { db } from "./sql";
+import { INBOX_TTL_MS, MAX_MESSAGES_PER_INBOX } from "./config.js";
+import { db } from "./sql.js";
 
 export type Inbox = { address: string; created_at: number; expires_at: number };
 type OwnedInbox = Inbox & { user_id: number | null };

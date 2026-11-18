@@ -1,8 +1,8 @@
 import PostalMime from "postal-mime";
-import { getDomain, normalizeRecipient } from "./address";
-import { MAX_EMAIL_BYTES } from "./config";
-import { getActiveInbox, insertMessage } from "./db";
-import { detectOtp, htmlToText } from "./otp";
+import { getDomain, normalizeRecipient } from "./address.js";
+import { MAX_EMAIL_BYTES } from "./config.js";
+import { getActiveInbox, insertMessage } from "./db.js";
+import { detectOtp, htmlToText } from "./otp.js";
 
 export type IngestResult = "stored" | "unknown_recipient" | "too_large";
 

@@ -1,12 +1,12 @@
 import { Hono } from "hono";
-import { getDomain, parseAddressParam, randomName, validateName } from "./address";
-import { admin } from "./admin";
-import { authRoutes, requireAdmin, requireUser, sameOriginGuard } from "./auth";
-import { INBOX_TTL_MS, TRIAL_MAX_INBOXES } from "./config";
-import * as db from "./db";
-import { env } from "./env";
-import { PRICES, currencyFor, inboxLimit, planOf, requestCountry } from "./plans";
-import type { AppEnv } from "./types";
+import { getDomain, parseAddressParam, randomName, validateName } from "./address.js";
+import { admin } from "./admin.js";
+import { authRoutes, requireAdmin, requireUser, sameOriginGuard } from "./auth.js";
+import { INBOX_TTL_MS, TRIAL_MAX_INBOXES } from "./config.js";
+import * as db from "./db.js";
+import { env } from "./env.js";
+import { PRICES, currencyFor, inboxLimit, planOf, requestCountry } from "./plans.js";
+import type { AppEnv } from "./types.js";
 
 const withTimeLeft = <T extends db.Inbox>(inbox: T, now: number) => ({
   ...inbox,

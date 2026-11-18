@@ -1,5 +1,5 @@
 import postgres from "postgres";
-import { env } from "./env";
+import { env } from "./env.js";
 
 let client: postgres.Sql | undefined;
 

@@ -1,5 +1,5 @@
-import { RANDOM_NAME_LENGTH } from "./config";
-import { env } from "./env";
+import { RANDOM_NAME_LENGTH } from "./config.js";
+import { env } from "./env.js";
 
 const NAME_CHARS = /^[a-z0-9.-]+$/;
 const ALPHANUMERIC = "abcdefghijklmnopqrstuvwxyz0123456789";

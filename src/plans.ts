@@ -1,5 +1,5 @@
-import { TRIAL_MAX_INBOXES } from "./config";
-import type { User } from "./types";
+import { TRIAL_MAX_INBOXES } from "./config.js";
+import type { User } from "./types.js";
 
 export type Plan = "admin" | "pro" | "trial" | "expired";
 

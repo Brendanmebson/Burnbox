@@ -1,11 +1,11 @@
 import { Hono, type Context, type MiddlewareHandler } from "hono";
 import { deleteCookie, getCookie, setCookie } from "hono/cookie";
-import { SESSION_TTL_MS, TRIAL_MS } from "./config";
-import { hashPassword, randomToken, sha256Hex, stringsMatch, verifyPassword } from "./crypto";
-import { requestCountry } from "./plans";
-import { env } from "./env";
-import type { AppEnv } from "./types";
-import * as users from "./users";
+import { SESSION_TTL_MS, TRIAL_MS } from "./config.js";
+import { hashPassword, randomToken, sha256Hex, stringsMatch, verifyPassword } from "./crypto.js";
+import { requestCountry } from "./plans.js";
+import { env } from "./env.js";
+import type { AppEnv } from "./types.js";
+import * as users from "./users.js";
 
 const SESSION_COOKIE = "tb_session";
 const DEVICE_COOKIE = "tb_device";

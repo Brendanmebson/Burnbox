@@ -1,7 +1,7 @@
-import { SESSION_TTL_MS, SIGNUP_NETWORK_WINDOW_MS, SIGNUPS_PER_NETWORK } from "./config";
-import { randomToken, sha256Hex } from "./crypto";
-import { db } from "./sql";
-import type { Role, User } from "./types";
+import { SESSION_TTL_MS, SIGNUP_NETWORK_WINDOW_MS, SIGNUPS_PER_NETWORK } from "./config.js";
+import { randomToken, sha256Hex } from "./crypto.js";
+import { db } from "./sql.js";
+import type { Role, User } from "./types.js";
 
 const COLUMNS = ["id", "email", "name", "role", "trial_ends_at", "pro_until", "disabled", "country", "created_at", "last_login_at"];
 const U_COLUMNS = COLUMNS.map((column) => `u.${column}`);

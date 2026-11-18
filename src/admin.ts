@@ -1,9 +1,9 @@
 import { Hono } from "hono";
-import { PRO_GRANT_MS, TRIAL_MS } from "./config";
-import { planOf } from "./plans";
-import { db } from "./sql";
-import type { AppEnv, User } from "./types";
-import { getUser } from "./users";
+import { PRO_GRANT_MS, TRIAL_MS } from "./config.js";
+import { planOf } from "./plans.js";
+import { db } from "./sql.js";
+import type { AppEnv, User } from "./types.js";
+import { getUser } from "./users.js";
 
 const DAY = 24 * 60 * 60 * 1000;
 

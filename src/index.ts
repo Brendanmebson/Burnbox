@@ -1,10 +1,10 @@
 import { Hono, type Context } from "hono";
-import { api } from "./api";
-import { stringsMatch } from "./crypto";
-import { purgeExpired } from "./db";
-import { ingestEmail } from "./email";
-import { env } from "./env";
-import type { AppEnv } from "./types";
+import { api } from "./api.js";
+import { stringsMatch } from "./crypto.js";
+import { purgeExpired } from "./db.js";
+import { ingestEmail } from "./email.js";
+import { env } from "./env.js";
+import type { AppEnv } from "./types.js";
 
 // Vercel serves the files in public/ itself. Everything else reaches this app.
 const app = new Hono<AppEnv>();
