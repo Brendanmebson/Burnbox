@@ -1,3 +1,4 @@
+import { readFile } from "node:fs/promises";
 import { Hono, type Context } from "hono";
 import { api } from "./api.js";
 import { stringsMatch } from "./crypto.js";
@@ -8,6 +9,15 @@ import type { AppEnv } from "./types.js";
 
 // Vercel serves the files in public/ itself. Everything else reaches this app.
 const app = new Hono<AppEnv>();
+
+// The one exception: Vercel mounts this app at "/", so the bare "/" reaches it
+// before public/index.html can be served. Send the landing page from here instead.
+let landingPage: Promise<string> | undefined;
+app.get("/", async (c) => {
+  landingPage ??= readFile(new URL("../public/index.html", import.meta.url), "utf8");
+  c.header("Cache-Control", "public, max-age=0, must-revalidate");
+  return c.html(await landingPage);
+});
 
 /** True when the request carries `Authorization: Bearer <secret>` and the secret is set. */
 const hasBearer = async (c: Context<AppEnv>, secret: string): Promise<boolean> => {
