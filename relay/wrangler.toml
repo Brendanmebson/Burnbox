@@ -3,6 +3,8 @@
 name = "burnbox-email-relay"
 main = "worker.ts"
 compatibility_date = "2025-10-01"
+# Email only: no public workers.dev URL needed.
+workers_dev = false
 
 [vars]
 # Where the app is hosted. Mail is posted to APP_URL/api/inbound.
