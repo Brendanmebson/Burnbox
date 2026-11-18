@@ -6,7 +6,8 @@ compatibility_date = "2025-10-01"
 
 [vars]
 # Where the app is hosted. Mail is posted to APP_URL/api/inbound.
-APP_URL = "https://burnbox.sbs"
+# Use the address Vercel serves without a redirect: a redirect drops the secret.
+APP_URL = "https://www.burnbox.sbs"
 
 # Secret (set with `npx wrangler secret put INBOUND_SECRET --config relay/wrangler.toml`):
 # INBOUND_SECRET, the same value as INBOUND_SECRET in your Vercel project settings.
