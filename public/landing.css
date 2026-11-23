@@ -358,6 +358,11 @@ body.landing { overflow-x: hidden; }
   clip-path: inset(0 -100vmax);
   color: #fff;
 }
+/* White floating icons across the whole band, under the content. */
+.sec-band > :not(.band-icons) { position: relative; z-index: 1; }
+.band-icons { position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; translate: -50% 0; pointer-events: none; }
+.sec-band .bi { stroke: #fff; opacity: 0.2; }
+@media (max-width: 760px) { .sec-band .bi { opacity: 0.14; } }
 .sec-band .chip { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.14); color: rgba(255, 255, 255, 0.78); }
 .sec-band .dim { color: rgba(255, 255, 255, 0.42); }
 .sec-band .sec { background: #2a2a2e; border-color: rgba(255, 255, 255, 0.08); box-shadow: none; }
@@ -535,6 +540,7 @@ body.landing { overflow-x: hidden; }
   animation-delay: var(--d);
 }
 @keyframes drift { 50% { translate: 0 -10px; } }
+@media (prefers-reduced-motion: reduce) { .bi { animation: none; } }
 .bi.wide-only { display: none; }
 @media (min-width: 1500px) { .bi.wide-only { display: block; } }
 @media (max-width: 1240px) { .bi { opacity: 0.45; } }
