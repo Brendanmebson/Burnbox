@@ -303,6 +303,8 @@ body:not(.landing) {
 .upgrade-close-form { position: absolute; top: 16px; right: 16px; margin: 0; }
 .upgrade-dialog .headline { padding-right: 36px; }
 .upgrade-price { display: flex; align-items: baseline; gap: 8px; }
+.upgrade-yearly { margin-top: 6px; font-size: 14.5px; }
+.upgrade-yearly strong { color: var(--text); font-weight: 700; }
 .upgrade-price strong { font-size: 52px; font-weight: 700; line-height: 1; letter-spacing: -0.05em; }
 .upgrade-note { padding: 12px 14px; border-radius: var(--radius-sm); background: var(--yellow-soft); font-size: 13.5px; text-wrap: pretty; }
 .check-list { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; font-size: 14.5px; font-weight: 600; }

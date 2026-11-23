@@ -20,12 +20,14 @@ export const inboxLimit = (plan: Plan): number | null => {
 // ---------- Pricing ----------
 
 export type Currency = "USD" | "GBP" | "EUR";
-export type Price = { currency: Currency; symbol: string; amount: number };
+/** `amount` is the monthly price; `yearly` is the price of a year paid up front. */
+export type Price = { currency: Currency; symbol: string; amount: number; yearly: number };
 
 export const PRICES: Record<Currency, Price> = {
-  USD: { currency: "USD", symbol: "$", amount: 5 },
-  GBP: { currency: "GBP", symbol: "£", amount: 4 },
-  EUR: { currency: "EUR", symbol: "€", amount: 5 },
+  // Yearly is 10 months' price: two months free.
+  USD: { currency: "USD", symbol: "$", amount: 5, yearly: 50 },
+  GBP: { currency: "GBP", symbol: "£", amount: 4, yearly: 40 },
+  EUR: { currency: "EUR", symbol: "€", amount: 5, yearly: 50 },
 };
 
 const POUND_COUNTRIES = new Set(["GB", "GG", "JE", "IM"]);

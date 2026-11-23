@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { PRO_GRANT_MS, TRIAL_MS } from "./config.js";
+import { PRO_GRANT_MS, PRO_YEAR_GRANT_MS, TRIAL_MS } from "./config.js";
 import { planOf } from "./plans.js";
 import { db } from "./sql.js";
 import type { AppEnv, User } from "./types.js";
@@ -51,7 +51,7 @@ admin.get("/overview", async (c) => {
   });
 });
 
-const ACTIONS = ["grant_pro", "revoke_pro", "extend_trial", "end_trial", "disable", "enable"] as const;
+const ACTIONS = ["grant_pro", "grant_pro_year", "revoke_pro", "extend_trial", "end_trial", "disable", "enable"] as const;
 type Action = (typeof ACTIONS)[number];
 
 admin.post("/users/:id", async (c) => {
@@ -69,6 +69,9 @@ admin.post("/users/:id", async (c) => {
     switch (action) {
       case "grant_pro":
         await sql`UPDATE users SET pro_until = ${Math.max(now, user.pro_until ?? 0) + PRO_GRANT_MS} WHERE id = ${id}`;
+        break;
+      case "grant_pro_year":
+        await sql`UPDATE users SET pro_until = ${Math.max(now, user.pro_until ?? 0) + PRO_YEAR_GRANT_MS} WHERE id = ${id}`;
         break;
       case "revoke_pro":
         await sql`UPDATE users SET pro_until = NULL WHERE id = ${id}`;

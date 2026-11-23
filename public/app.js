@@ -232,11 +232,14 @@
 
   const openUpgrade = () => {
     const account = state.account;
-    if (account?.price) $("upgrade-price").textContent = `${account.price.symbol}${account.price.amount}`;
+    if (account?.price) {
+      $("upgrade-price").textContent = `${account.price.symbol}${account.price.amount}`;
+      if (account.price.yearly) $("upgrade-price-yearly").textContent = `${account.price.symbol}${account.price.yearly}`;
+    }
     const contact = $("upgrade-contact");
     if (account?.support_email) {
       contact.hidden = false;
-      contact.href = `mailto:${account.support_email}?subject=${encodeURIComponent("Upgrade to Burnbox Pro")}&body=${encodeURIComponent(`Please upgrade ${account.user.email} to Pro.`)}`;
+      contact.href = `mailto:${account.support_email}?subject=${encodeURIComponent("Upgrade to Burnbox Pro")}&body=${encodeURIComponent(`Please upgrade ${account.user.email} to Pro.\n\nI'd like to pay: monthly / yearly`)}`;
     } else {
       contact.hidden = true;
     }

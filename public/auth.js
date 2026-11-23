@@ -17,14 +17,17 @@
     .then((session) => { if (session) location.replace(homeFor(session.user.role)); })
     .catch(() => {});
 
-  // Show the monthly price in the visitor's currency.
+  // Show the monthly and yearly prices in the visitor's currency.
   const priceEls = document.querySelectorAll("[data-price]");
-  if (priceEls.length) {
+  const yearlyEls = document.querySelectorAll("[data-price-yearly]");
+  if (priceEls.length || yearlyEls.length) {
     fetch("/api/pricing", { cache: "no-store" })
       .then((res) => (res.ok ? res.json() : null))
       .then((pricing) => {
         const price = pricing?.prices?.[pricing.currency];
-        if (price) priceEls.forEach((el) => { el.textContent = `${price.symbol}${price.amount}`; });
+        if (!price) return;
+        priceEls.forEach((el) => { el.textContent = `${price.symbol}${price.amount}`; });
+        if (price.yearly) yearlyEls.forEach((el) => { el.textContent = `${price.symbol}${price.yearly}`; });
       })
       .catch(() => {});
   }

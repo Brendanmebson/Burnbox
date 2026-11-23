@@ -17,18 +17,20 @@
 // Pricing in the visitor's currency, with a switcher for the others.
 (() => {
   const priceEls = document.querySelectorAll("[data-price]");
+  const yearlyEls = document.querySelectorAll("[data-price-yearly]");
   const zeroEls = document.querySelectorAll("[data-price-zero]");
   const switcher = document.getElementById("currency-switch");
   if (!switcher) return;
   let prices = {
-    USD: { symbol: "$", amount: 5 },
-    GBP: { symbol: "£", amount: 4 },
-    EUR: { symbol: "€", amount: 5 },
+    USD: { symbol: "$", amount: 5, yearly: 50 },
+    GBP: { symbol: "£", amount: 4, yearly: 40 },
+    EUR: { symbol: "€", amount: 5, yearly: 50 },
   };
   const show = (currency) => {
     const price = prices[currency];
     if (!price) return;
     priceEls.forEach((el) => { el.textContent = `${price.symbol}${price.amount}`; });
+    yearlyEls.forEach((el) => { el.textContent = `${price.symbol}${price.yearly}`; });
     zeroEls.forEach((el) => { el.textContent = `${price.symbol}0`; });
     switcher.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.currency === currency)));
   };

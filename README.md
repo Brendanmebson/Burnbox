@@ -2,7 +2,7 @@
 
 **Test email inboxes for developers.** Generate a real, working email address, sign up with it in the app you're building, and the email lands in a web inbox within seconds. OTP codes are pulled out for one-click copying, verification links are listed first, and every inbox deletes itself after 24 hours.
 
-Burnbox runs as a small paid service: new accounts get a **7-day free trial** (up to 4 inboxes at a time), then **Pro** costs **$5 / £4 / €5 a month**, shown in the visitor's local currency, for unlimited inboxes.
+Burnbox runs as a small paid service: new accounts get a **7-day free trial** (up to 4 inboxes at a time), then **Pro** costs **$5 / £4 / €5 a month** or **$50 / £40 / €50 a year** (two months free), shown in the visitor's local currency, for unlimited inboxes.
 
 It runs on three services: **Vercel** hosts the website and API, **Supabase** holds the data in Postgres, and **Cloudflare** receives the email. There's no build step.
 
@@ -104,13 +104,14 @@ All pages are plain HTML, CSS and JavaScript in [public/](public/). There's no f
 | Plan | Price | Inboxes at a time | How someone gets it |
 | --- | --- | --- | --- |
 | **Free trial** | Free for 7 days | 4 | Automatically on signup |
-| **Pro** | $5 / £4 / €5 per month | Unlimited | The admin grants it (see below) |
+| **Pro, monthly** | $5 / £4 / €5 per month | Unlimited | The admin grants it (see below) |
+| **Pro, yearly** | $50 / £40 / €50 per year (two months free) | Unlimited | The admin grants it (see below) |
 | **Trial ended** | – | 0 new ones | After 7 days without Pro. Existing inboxes stay readable until they expire |
 
 **Currency by location.** Vercel tells the app which country each visitor is in:
-- **£4** for the UK, Guernsey, Jersey and the Isle of Man
-- **€5** for the eurozone, plus Andorra, Monaco, San Marino, Vatican City, Montenegro and Kosovo
-- **$5** everywhere else
+- **£4 a month or £40 a year** for the UK, Guernsey, Jersey and the Isle of Man
+- **€5 a month or €50 a year** for the eurozone, plus Andorra, Monaco, San Marino, Vatican City, Montenegro and Kosovo
+- **$5 a month or $50 a year** everywhere else
 
 The landing page also has a $/£/€ switch.
 
@@ -331,6 +332,7 @@ The cleanup runs daily at 04:00 UTC (`0 4 * * *`). That's the most often the Hob
 | `TRIAL_MS` | 7 days | Free trial length |
 | `TRIAL_MAX_INBOXES` | 4 | Inboxes at a time on the trial |
 | `PRO_GRANT_MS` | 31 days | What one "Give 1 month Pro" click adds |
+| `PRO_YEAR_GRANT_MS` | 365 days | What one "Give 1 year Pro" click adds |
 | `SIGNUPS_PER_NETWORK` | 3 | Max new accounts per network… |
 | `SIGNUP_NETWORK_WINDOW_MS` | 30 days | …within this window |
 
@@ -349,12 +351,13 @@ Sign in at `/login/` with `ADMIN_EMAIL` and `ADMIN_PASSWORD`, and you land on `/
 | Button | What it does |
 | --- | --- |
 | **Give 1 month Pro** / **+1 month Pro** | Adds 31 days of Pro, on top of any Pro they already have |
+| **Give 1 year Pro** / **+1 year Pro** | Adds 365 days of Pro, on top of any Pro they already have. For customers who pay yearly |
 | **Remove Pro** | Ends Pro immediately |
 | **+7 days trial** | Adds 7 days to their trial |
 | **Disable** / **Enable** | Disabling signs them out and blocks sign-in. Their data stays |
 | **Delete** | Deletes the account, its inboxes and emails. Can't be undone |
 
-**Upgrading someone who emailed you:** search for their email, then click **Give 1 month Pro**. Do it again each month they pay, or click it several times at once to add more months.
+**Upgrading someone who emailed you:** search for their email, then click **Give 1 month Pro** if they pay monthly, or **Give 1 year Pro** if they pay for a year. Click again each time they renew. Clicks add up, so you can also give several months at once.
 
 The **Your inboxes** link opens `/app/`, so you can use Burnbox yourself. The admin account has no inbox limit.
 
@@ -460,7 +463,7 @@ All routes are JSON. Everything except signup, login, logout and pricing needs t
 | Method | Path | Notes |
 | --- | --- | --- |
 | GET | `/api/admin/overview` | Totals and every account |
-| POST | `/api/admin/users/:id` | `{ action }`: `grant_pro`, `revoke_pro`, `extend_trial`, `end_trial`, `disable`, `enable` |
+| POST | `/api/admin/users/:id` | `{ action }`: `grant_pro` (1 month), `grant_pro_year` (1 year), `revoke_pro`, `extend_trial`, `end_trial`, `disable`, `enable` |
 | DELETE | `/api/admin/users/:id` | Deletes the account, its inboxes and mail |
 
 ### Internal (secret required, not for browsers)
@@ -541,7 +544,7 @@ public/
 
 | To change… | Edit |
 | --- | --- |
-| **Prices** | `PRICES` in [src/plans.ts](src/plans.ts). Also update the fallback prices in [public/landing.js](public/landing.js) and the default `$5` text in [public/index.html](public/index.html) and [public/signup/index.html](public/signup/index.html), which show before the real price loads |
+| **Prices** | `PRICES` in [src/plans.ts](src/plans.ts): `amount` is the monthly price and `yearly` the yearly one. Also update the fallback prices in [public/landing.js](public/landing.js) and the default `$5` and `$50` text in [public/index.html](public/index.html), [public/signup/index.html](public/signup/index.html) and [public/app/index.html](public/app/index.html), which show before the real price loads |
 | **Which countries get £ or €** | `POUND_COUNTRIES` and `EURO_COUNTRIES` in [src/plans.ts](src/plans.ts) |
 | **Trial length, trial inbox limit, inbox lifetime** | [src/config.ts](src/config.ts). Then update the wording on the landing, signup and pricing pages to match |
 | **Colours and fonts** | The variables at the top of [public/styles.css](public/styles.css) (`--accent` is the orange) |
@@ -637,4 +640,4 @@ Locally, yes ([Run it locally](#run-it-locally)). Live, you need a domain on Clo
 Technically yes, but every inbox deletes itself after 24 hours. Password resets and "verify it's you" emails won't reach them after that, so it's only suitable for accounts nobody minds losing. Burnbox is built for testing your own apps.
 
 **How do I take real payments?**
-Not built yet. The simplest route is Stripe Checkout for the $5/£4/€5 subscription, plus a webhook that sets `pro_until` on the account when a payment succeeds. The admin dashboard and plan logic already work from `pro_until`.
+Not built yet. The simplest route is Stripe Checkout with two prices, $5/£4/€5 monthly and $50/£40/€50 yearly, plus a webhook that sets `pro_until` on the account when a payment succeeds (a month or a year ahead). The admin dashboard and plan logic already work from `pro_until`.

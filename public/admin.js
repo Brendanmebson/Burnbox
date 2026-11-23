@@ -119,9 +119,11 @@
     const out = [];
     if (u.plan === "pro") {
       out.push(btn("+1 month Pro", () => act(u, "grant_pro")));
+      out.push(btn("+1 year Pro", () => act(u, "grant_pro_year")));
       out.push(btn("Remove Pro", () => act(u, "revoke_pro", `Remove Pro from ${u.email}?`)));
     } else {
       out.push(btn("Give 1 month Pro", () => act(u, "grant_pro"), "primary"));
+      out.push(btn("Give 1 year Pro", () => act(u, "grant_pro_year")));
       out.push(btn("+7 days trial", () => act(u, "extend_trial")));
     }
     out.push(

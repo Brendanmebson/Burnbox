@@ -359,6 +359,9 @@ body.landing { overflow-x: hidden; }
 .price-card-pro { background: var(--nav); color: #fff; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.55); }
 .price-card-pro p, .price-card-pro .price span { color: rgba(255, 255, 255, 0.62); }
 .chip-pro { background: var(--accent); border-color: transparent; color: #fff; }
+.price-alt { margin-top: 10px; font-size: 14.5px; }
+.price-alt strong { font-weight: 700; font-variant-numeric: tabular-nums; }
+.price-card-pro .price-alt strong { color: #fff; }
 .price-note { margin-top: 20px; color: var(--muted); font-size: 13.5px; text-align: center; }
 
 /* CTA + footer */
